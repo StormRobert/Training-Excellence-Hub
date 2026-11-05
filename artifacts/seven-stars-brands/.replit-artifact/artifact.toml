@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Seven Stars Brands"
+description = "A clear, practical website for Seven Stars Brands, a Kenyan learning, performance and organizational development consultancy. It introduces the company, its training programmes, its location-based learning method, verified credentials and CEO, and helps organizations start a consultation."
+version = "1.0.0"
+id = "artifacts/seven-stars-brands"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21044
+
+[services.development]
+run = "pnpm --filter @workspace/seven-stars-brands run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/seven-stars-brands", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/seven-stars-brands/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21044"
+BASE_PATH = "/"
